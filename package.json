@@ -1,0 +1,33 @@
+{
+  "name": "swac-rethinkdb",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rkusa/swac-rethinkdb.git"
+  },
+  "author": "Markus Ast <npm.m@rkusa.st>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rkusa/swac-rethinkdb/issues"
+  },
+  "homepage": "https://github.com/rkusa/swac-rethinkdb",
+  "engines": {
+    "node": ">=0.10"
+  },
+  "dependencies": {
+    "rethinkdb": "~1.10.0-0"
+  },
+  "devDependencies": {
+    "chai": "~1.8.1",
+    "mocha": "~1.14.0",
+    "swac-odm": "~0.1.0"
+  }
+}
