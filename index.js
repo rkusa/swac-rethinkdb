@@ -157,11 +157,15 @@ API.prototype.view = function(/*view, key, query, callback*/) {
       : table.run.bind(table.orderBy(this.opts.orderBy || 'id'), conn)
     fn(function(err, rows) {
       if (err) return callback(err)
-      callback(null, rows.map(function(row) {
-        return row instanceof self.model
-          ? row
-          : new self.model(row)
-      }))
+      if (!rows) {
+        callback(null, null)
+      } else if (Array.isArray(rows)) {
+        callback(null, rows.map(function(row) {
+          return row instanceof self.model ? row : new self.model(row)
+        }))
+      } else {
+        callback(null, rows instanceof self.model ? rows : new self.model(rows))
+      }
     })
   })
 }
