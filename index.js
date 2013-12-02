@@ -18,6 +18,7 @@ API.prototype.initialize = function(callback) {
       if (err) return callback(err)
       if (!!~tables.indexOf(tableName)) {
         self.createIndexes(conn, callback)
+        return
       }
       r.tableCreate(tableName).run(conn, function(err, res) {
         if (err) return callback(err)
@@ -80,7 +81,7 @@ API.prototype.get = function(id, callback) {
     var self = this
     this.table.get(id).run(conn, function(err, body) {
       if (err) return callback(err)
-      callback(null, new self.model(body))
+      callback(null, body ? new self.model(body) : null)
     })
   })
 }
@@ -175,4 +176,23 @@ exports.initialize = function(model, opts, definition, callback) {
   api.initialize(callback)
 
   return api
+}
+
+exports.middleware = function() {
+  return function(req, res, next) {
+    function afterRequest() {
+      res.removeListener('finish', afterRequest)
+      res.removeListener('close', afterRequest)
+
+      if (process.domain && 'rethinkdb' in process.domain) {
+        process.domain.rethinkdb.conn.close()
+        delete process.domain.rethinkdb
+      }
+    }
+
+    res.on('finish', afterRequest)
+    res.on('close', afterRequest)
+
+    next()
+  }
 }
