@@ -90,10 +90,7 @@ API.prototype.put = function(doc, callback) {
   if (!callback) callback = function() {}
 
   var data = doc.toJSON(true)
-  for (var key in data) {
-    if (data[key] === undefined)
-    delete data[key]
-  }
+  cleanupUndefined(data)
 
   this.connect(function(err, conn) {
     if (err) return callback(err)
@@ -108,10 +105,7 @@ API.prototype.post = function(doc, callback) {
   if (!callback) callback = function() {}
 
   var data = doc.toJSON(true)
-  for (var key in data) {
-    if (data[key] === undefined)
-    delete data[key]
-  }
+  cleanupUndefined(data)
 
   this.connect(function(err, conn) {
     if (err) return callback(err)
@@ -194,5 +188,22 @@ exports.middleware = function() {
     res.on('close', afterRequest)
 
     next()
+  }
+}
+
+function cleanupUndefined(data) {
+  for (var key in data) {
+    if (data[key] === undefined) {
+      delete data[key]
+    } else if (typeof data[key] === 'object') {
+      if (Array.isArray(data[key])) {
+        data[key].forEach(function(el) {
+          if (typeof el === 'object')
+            cleanupUndefined(el)
+        })
+      } else {
+        cleanupUndefined(data[key])
+      }
+    }
   }
 }
