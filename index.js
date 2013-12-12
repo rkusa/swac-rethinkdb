@@ -146,7 +146,7 @@ API.prototype.view = function(/*view, key, query, callback*/) {
   this.connect(function(err, conn) {
     if (err) return callback(err)
     var table = r.table(this.model._type, { useOutdated: this.opts.useOutdated || true })
-      , context = { table: table, req: process.domain.req, conn: conn }
+      , context = { r: r, table: table, req: process.domain.req, conn: conn }
     var fn = view
       ? this.views[view].bind(context, key, query)
       : table.run.bind(table.orderBy(this.opts.orderBy || 'id'), conn)
