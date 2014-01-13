@@ -1,6 +1,6 @@
 {
   "name": "swac-rethinkdb",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "directories": {
@@ -23,11 +23,11 @@
     "node": ">=0.10"
   },
   "dependencies": {
-    "rethinkdb": "~1.10.0"
+    "rethinkdb": "1.11.x"
   },
   "devDependencies": {
     "chai": "~1.8.1",
-    "mocha": "~1.14.0",
+    "mocha": "~1.17.0",
     "swac-odm": "~0.1.0"
   }
 }
