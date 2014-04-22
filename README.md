@@ -1,10 +1,6 @@
 # [SWAC-ODM](https://github.com/rkusa/swac-odm) RethinkDB Adapter
+[![NPM](https://badge.fury.io/js/swac-rethinkdb.png)](https://npmjs.org/package/swac-rethinkdb)
 [![Build Status](https://secure.travis-ci.org/rkusa/swac-rethinkdb.png)](http://travis-ci.org/rkusa/swac-rethinkdb) [![Dependency Status](https://gemnasium.com/rkusa/swac-rethinkdb.png)](https://gemnasium.com/rkusa/swac-rethinkdb)
-
-```json
-{ "name": "swac-rethinkdb",
-  "version": "0.1.0" }
-```
 
 ## Usage
 
